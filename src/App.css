@@ -1,3 +1,18 @@
+.Login-Page{
+  /* background-color: pink; */
+  /* background: './assets/manuel-schinner-ZwjFuJ7ebpk-unsplash.jpg',  */
+}
+
+.Login-Button{
+  border: 2px solid #6EC4C5;
+  font-size: 20px;
+}
+
+.Login-Label{
+  color: white;
+  font-weight: 700;
+}
+
 .App {
   text-align: center;
 }

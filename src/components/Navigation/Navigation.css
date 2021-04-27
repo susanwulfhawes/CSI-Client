@@ -1,0 +1,8 @@
+.nav-item{
+    color: pink;
+}
+
+.navColor {
+    background: linear-gradient(to right, hotpink, coral);
+    height: 65px
+}
