@@ -43,7 +43,7 @@ class App extends Component<{}, LoginState> {
   // }
 
   homeView = () => {
-    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex /> <Register /></>: (<Login updateSessionToken={this.updateSessionToken} />)
+    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex  token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
   };
 
   // createInfantView = () => {
@@ -57,7 +57,11 @@ class App extends Component<{}, LoginState> {
   //use localStorage.getItem('token')  - if I can't hunt this down
 
   careIndexView = () => {
-    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex /> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex  token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+  }
+
+  registerView = () => {
+    return (<Register />)
   }
 
     render(){
@@ -69,6 +73,7 @@ class App extends Component<{}, LoginState> {
               <Route exact path="/" component={this.homeView} />
               <Route path="/createinfant" component={this.createInfantView} /> 
               <Route path="/careindex" component={this.careIndexView} />
+              <Route path='/register' component={this.registerView} />
             </Switch>
           </Router>
           <footer></footer>
@@ -76,51 +81,7 @@ class App extends Component<{}, LoginState> {
       );
     }
 
-  // render(){
-  //   return (
-  //     <div className="App">
-        
-  //       <Router>
-        
-  //       {(localStorage.getItem('token')) ? <><CareIndex /> <Register /></>: (<Login updateSessionToken={this.updateSessionToken} />)}
-  //       </Router>
 
-
-  //     </div>
-  //   )
-
-  //   return (
-  //     <React.Fragment>
-  //         <Router>
-  //             {/* <Nav /> */}
-  //             <div className="sidebar-list-styling">
-  //               <ul className="sidebar-list list-unstyled">
-  //                   <li><Link to="/login">login</Link></li>
-  //                   <li><Link to="/careindex">Care Index</Link></li>
-                    
-  //               </ul>
-  //           </div>
-  //             <div>
-  //             <Switch>
-  //                 <Route exact path="/login" component={ this.protectViews } />
-  //                 <Route exact path="/careindex" component={ CareIndex } />
-  //             </Switch>
-  //             </div>
-  //         </Router>
-  //     </React.Fragment>
-  // )
-  
-
-
-  // render(){
-  //   return (
-  //     <div className="App">
-  //       <div className="verticalCenter">
-  //         <Login updateSessionToken={this.updateSessionToken} />
-  //       </div>
-  //     </div>
-  //   );
-  // }
 }
  
 
