@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {Col, Row, Image, Table, Form, Button} from 'react-bootstrap';
 // import babyfeet from '../../assets/babyfeet.jpg';
 import logo from '../../assets/logo.png';
-import lennyx from '../../assets/lennyx.jpg'
+import lennyx from '../../assets/lennyx.jpg';
+import CareList from './CareList';
 
 type AcceptedProps = {
   token: string | any,
@@ -28,8 +29,6 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
         }
     }
 
-  
-   
   handleSubmit = (e: any) => {
       console.log(this.state.time)
       if (localStorage.getItem('token')){
@@ -54,7 +53,8 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
               } else return res.json();
             })
             .then((data) => {
-                console.log('here');
+              //<CareIndex  token={localStorage.getItem('token')}/>
+                window.location.reload();
                 // alert("Care created");
             })
             .catch((err) => alert(err));
@@ -65,32 +65,27 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
        
       setDate = () => {
         let arr1 = Date().split(' ')
-        let el
+        
         return (
           arr1[0] + ' ' + arr1[1] + ' ' + arr1[2] + ' ' + arr1[3]
         )
       };
 
       setTime = () => {
+        
         let arr1 = Date().split(' ')
         let arr2 = arr1[4].split(':');
-        let hour = 0;
+        
+        let hour = parseInt(arr2[0]);
         let amPm = 'am';
-        if (parseInt(arr1[4]) > 12) {
-          hour = (parseInt(arr1[4]) - 12)
+        if (parseInt(arr2[0]) > 12) {
+          hour = (parseInt(arr2[0]) - 12)
           amPm = 'pm'
         }
         return (
           hour + ':' + arr2[1] + ' ' + amPm
         )
       };
-
-
-      // setTime2 = () => {
-      //   const time2 = document.getElementById('time');
-      //   time2.addEventListener('change', this.setTime);
-      // }
-   
 
     render(){
           return (
@@ -105,18 +100,18 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
                     <Form onSubmit={this.handleSubmit}>
                     <Table style={{backgroundColor: 'white'}}>
                       <tbody>
-                        <tr style={{backgroundColor: '#6EC4C5'}}>
-                          <td colSpan={2} style={{textAlign: 'center'}}>New Care</td>
+                        <tr style={{backgroundColor: '#6EC4C5', color: 'white'}}>
+                          <td colSpan={2} style={{textAlign: 'center'}}><strong>New Care</strong></td>
                         </tr>
                         <tr>
                           <td style={{width: '25%'}}><label htmlFor="care" className="d-flex justify-content-end"><span style={{color: 'red'}}>&#42; &nbsp;</span>Care:&nbsp;</label></td>
                           <td>
                             <select name="care" id="care" style={{width: "90%"}} onChange={(e) => this.setState({care: e.target.value})}>
-                              <option value="feeding">Feeding</option>
-                              <option value="nap">Nap</option>
-                              <option value="diapercange">Diaper Change</option>
-                              <option value="medicine">Medicine</option>
-                              <option value="note">Note / Other</option>
+                              <option value="Feeding">Feeding</option>
+                              <option value="Nap">Nap</option>
+                              <option value="Diaper Change">Diaper Change</option>
+                              <option value="Medicine">Medicine</option>
+                              <option value="Note">Note / Other</option>
                             </select>
                           </td>
                         </tr>
@@ -154,7 +149,9 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
                         </tr>
                       </tbody>
                     </Table>
-                    <Button className="Login-Button mt-2 d-flex justify-content-center" type="submit">Create Care</Button>
+                    <div className="d-flex justify-content-center">
+                <Button className="d-flex justify-content-center Login-Button mt-2" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 20, color: 'black', backgroundColor: 'white'}}>Create Care</Button>
+            </div>
                     </Form>
                     </div>
                   </Col>
@@ -164,74 +161,11 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
                     </div>
                   </Col>
                 </Row>
-
-
-                {/* <div className="d-flex justify-content-center">
-                    <h1>Care Index</h1>
-                <Form onSubmit={this.handleSubmit}>
-               <table>
-                   
-
-                   <tr>
-                    <td colSpan={2}>Baby's Information</td>
-                   </tr>
-                   <tr>
-                        <td><label className="Login-Label d-flex justify-content-end">Baby's Name:&nbsp;</label></td>
-                        <td><input type="text" placeholder="Baby's Name" onChange={(e) => this.setState({babyname: e.target.value})}/></td>
-                   </tr>
-                   <tr>
-                         <td><label className="Login-Label d-flex justify-content-end">Parent(s)' Full Name(s):&nbsp;</label></td>
-                        <td><input type="text" placeholder="Last Name" onChange={(e) => this.setState({parentname: e.target.value})}/></td>
-                   </tr>
-                   <tr>
-                        <td><label className="Login-Label d-flex justify-content-end">Contact Number:&nbsp;</label></td>
-                        <td><input type="text" placeholder="Contact Number" onChange={(e) => this.setState({contactnumber: e.target.value})}/></td>
-                   </tr>
-               </table>
-               <Button className="Login-Button mt-2" type="submit">Register</Button>
-               </Form>
-               </div> */}
+                <hr/>
+                <CareList test='testing'/>
             </div>
         )
     }
 }
 
 export default CareIndex;
-
-
-// import React, { Component } from 'react';
-// import {Container, Button, Form, Navbar, NavItem, Image} from 'react-bootstrap';
-
-
-// type Data = {
-//     currentToken: string,
-// };
-
-// class CareIndex extends React.Component<{}, Data>{
-//     constructor(props: {}){
-//         super(props)
-//         this.state = {
-//             currentToken: '',
-
-//         }
-//     }
-
-//    currentToken = localStorage.getItem('token');
-
-//    test = <div>hello<div>hello</div></div>
-   
-       
-   
-   
-
-//     render(){
-//         return (
-//             <div>
-//                 {this.currentToken}
-//                 {this.test} 
-//             </div>
-//         )
-//     }
-// }
-
-// export default CareIndex;

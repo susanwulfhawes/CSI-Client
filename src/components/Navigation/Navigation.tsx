@@ -10,6 +10,19 @@ import './Navigation.css';
 
 class Navigation extends Component {
     
+    clearToken =() => {
+        localStorage.clear();
+        this.setState({sessionToken: ''});
+        window.location.reload();
+      };
+
+      getUserRole = () => {
+          return (
+            console.log(' get user role')
+          )
+          
+      }
+    
 
     render(){
         return(
@@ -21,6 +34,12 @@ class Navigation extends Component {
                     </NavItem>
                     <NavItem className="ml-2">
                             {localStorage.getItem('token') ? <Button href="/createinfant" style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Create Infant</Button> : <></>}
+                    </NavItem>
+                    <NavItem className="ml-2">
+                            {localStorage.getItem('token') ? <Button href="/roleusers" style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Create Helpers</Button> : <></>}
+                    </NavItem>
+                    <NavItem className="ml-2">
+                            {localStorage.getItem('token') ? <Button onClick={this.clearToken} style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Log Out</Button> : <></>}
                     </NavItem>
                     
                 </Nav>

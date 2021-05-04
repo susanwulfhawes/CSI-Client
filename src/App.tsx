@@ -5,8 +5,10 @@ import CareIndex from './components/Care/CareIndex';
 import Register from './components/Auth/Register'
 import Navigation from './components/Navigation/Navigation';
 import CreateInfant from './components/Infants/CreateInfant';
+import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import RoleUsers from './components/Auth/RoleUsers';
 
 
 type LoginState = {
@@ -37,6 +39,11 @@ class App extends Component<{}, LoginState> {
     console.log(`Token: ${newToken}`);
   };
 
+  clearToken =() => {
+    localStorage.clear();
+    this.setState({sessionToken: ''});
+  }
+
   // protectViews = () => {
   //   console.log(this.updateSessionToken);
   //   return <Login updateSessionToken={this.updateSessionToken} />
@@ -64,6 +71,10 @@ class App extends Component<{}, LoginState> {
     return (<Register />)
   }
 
+  createUserRoleView = () => {
+    return (localStorage.getItem('token')) ? <><Navigation/><RoleUsers token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+  }
+
     render(){
       return (
         <div>
@@ -73,10 +84,11 @@ class App extends Component<{}, LoginState> {
               <Route exact path="/" component={this.homeView} />
               <Route path="/createinfant" component={this.createInfantView} /> 
               <Route path="/careindex" component={this.careIndexView} />
+              <Route path="/roleusers" component={this.createUserRoleView} />
               <Route path='/register' component={this.registerView} />
             </Switch>
           </Router>
-          <footer></footer>
+          <Footer />
         </div>
       );
     }

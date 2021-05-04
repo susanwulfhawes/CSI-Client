@@ -23,7 +23,9 @@
   pointer-events: none;
 }
 
-
+tbody.Care-List tr:nth-child(even){
+  background-color: rgba(245, 228, 220, 0.4);
+}
 
 
 @media (prefers-reduced-motion: no-preference) {
