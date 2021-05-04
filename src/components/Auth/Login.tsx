@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Button, Form, Navbar, NavItem} from 'react-bootstrap';
+import {Button, Form} from 'react-bootstrap';
 import babyfeet from '../../assets/babyfeet.jpg';
 import logo from '../../assets/logo.png';
 import Register from './Register';
 // import RegisterInfant from './RegisterInfant';
 import ReactDOM from 'react-dom';
+import { isThisTypeNode } from 'typescript';
 
 
 type AcceptedProps = {
@@ -14,6 +15,9 @@ type AcceptedProps = {
 type MyState = {
     email: string,
     password: string,
+    firstname: string,
+    lastname: string,
+    registerToggle: boolean,
 };
 
 class Login extends Component<AcceptedProps, MyState> {
@@ -22,6 +26,9 @@ class Login extends Component<AcceptedProps, MyState> {
         this.state = {
             email: '',
             password: '', 
+            firstname: '',
+            lastname: '',
+            registerToggle: false,
         }
     }
 
@@ -53,44 +60,106 @@ class Login extends Component<AcceptedProps, MyState> {
           alert("Email and/or Password cannot be blank");
         }
       };
-    
+
+      handleSubmitRegister = () => {
+        
+            
+        fetch('http://localhost:3000/user/create/1', {
+            method: 'POST',
+            body: JSON.stringify({email: this.state.email, password: this.state.password, firstname: this.state.firstname, lastname: this.state.lastname}),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(
+            (response) => response.json()
+        ).then((data) => {
+            ///this.setState({updateToken: data.sessionToken})
+            console.log('in here');
+            //localStorage.setItem('token', data.sessionToken)
+            
+           // console.log(localStorage.getItem('token'))
+           
+        });
+        
+    }
+
+      
+    AddRegister = () => {
+        console.log(this.state.registerToggle)
+        return (
+            (!this.state.registerToggle ? <></> :
+            <div className='d-flex justify-content-center'>
+            <Form onSubmit={this.handleSubmitRegister}>
+            <table className='mt-5'>
+            <tr>
+                    <td><label className="Login-Label d-flex justify-content-end">Admin&nbsp;</label></td>
+                    <td><label className="Login-Label d-flex justify-content-begin">Information</label></td>
+                    
+               </tr>
+               <tr>
+                    <td><label className="Login-Label d-flex justify-content-end">Email:&nbsp;</label></td>
+                    <td><input type="email" placeholder="email" onChange={(e) => this.setState({email: e.target.value})}/></td>
+               </tr>
+               <tr>
+                    <td><label className="Login-Label d-flex justify-content-end">Password:&nbsp;</label></td>
+                    <td><input type="password" placeholder="password" onChange={(e) => this.setState({password: e.target.value})}/></td>
+                </tr>
+               <tr>
+                    <td><label className="Login-Label d-flex justify-content-end">First Name:&nbsp;</label></td>
+                    <td><input type="text" placeholder="First Name" onChange={(e) => this.setState({firstname: e.target.value})}/></td>
+               </tr>
+               <tr>
+                    <td><label className="Login-Label d-flex justify-content-end">Last Name:&nbsp;</label></td>
+                    <td><input type="text" placeholder="Last Name" onChange={(e) => this.setState({lastname: e.target.value})}/></td>
+               </tr>
+
+              
+           </table>
+           <div className="d-flex justify-content-center">"
+                <Button className="d-flex justify-content-center Login-Button mt-2" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 20, color: 'black', backgroundColor: 'white'}}>Submit</Button>
+            </div>
+           </Form>
+           </div>
+            )
+        );
+    };
 
     render(){
         return(
-            <div style={{backgroundImage:`url(${babyfeet})`, backgroundSize: 'cover', backgroundPositionY: -200, backgroundRepeat: 'no-repeat', minHeight: 1000}}>
+            <div style={{backgroundImage:`url(${babyfeet})`, backgroundSize: 'cover', backgroundPositionY: -300, backgroundRepeat: 'no-repeat', minHeight: 1000}}>
                 <div className='pt-3'>
                     <img className="d-flex justify-content-begin ml-5" src={logo} alt='Logo' style={{backgroundColor: '#ffffff00', width: 120, border: '3px solid #F2C2C2', borderRadius: 10}} />
                 </div>
-                <Navbar  className="d-flex justify-content-end" fixed='top'>
-                   
-                    <NavItem>Care</NavItem>
-                    <NavItem className='ml-3'>Profile</NavItem>
-                    <NavItem className='ml-3'>Admin</NavItem>
-                    <NavItem className='ml-3'>Logout</NavItem>
-                </Navbar>
-                <Form id="submitOption" onSubmit={this.handleSubmit}>
-                    <div className="d-flex justify-content-center">
-                        <table className='mt-5'>
-                            <tr>
-                                <td><label className="Login-Label d-flex justify-content-end">Email:&nbsp;</label></td>
-                                <td><input type="email" placeholder="email" onChange={(e) => this.setState({email: e.target.value})}/></td>
-                            </tr>
-                            <tr>
-                                <td><label className="Login-Label d-flex justify-content-end">Password:&nbsp;</label></td>
-                                <td><input type="password" placeholder="password" onChange={(e) => this.setState({password: e.target.value})}/></td>
-                            </tr>
-                            
-                        </table>
-                    </div>
-                    <Button className="Login-Button mt-2" type="submit">Login</Button>
-                </Form>
-                {/* <Test /> */}
-                <div id="toggleSubmit">
-
+                
+                <div className="d-flex justify-content-center">
+                    <Form id="submitOption" onSubmit={this.handleSubmit}>
+                            <table className='mt-5'>
+                                <tr>
+                                    <td><label className="Login-Label d-flex justify-content-end">Email:&nbsp;</label></td>
+                                    <td><input type="email" placeholder="email" onChange={(e) => this.setState({email: e.target.value})}/></td>
+                                </tr>
+                                <tr>
+                                    <td><label className="Login-Label d-flex justify-content-end">Password:&nbsp;</label></td>
+                                    <td><input type="password" placeholder="password" onChange={(e) => this.setState({password: e.target.value})}/></td>
+                                </tr>
+                                
+                            </table>
+                            <div className="d-flex justify-content-center">
+                                <Button className="Do-Button mt-2 mb-5" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 20, color: 'black', backgroundColor: 'white'}}>Login</Button>
+                            </div>
+                    </Form>
                 </div>
-                <Register/>
-                {/* <RegisterInfant/> */}
-            </div>
+                    
+                    <div className="d-flex justify-content-center Login-Label mt-5">
+                        Not a user?
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <button className="Do-Button mt-2" onClick={() => this.setState({registerToggle: true})} type='button'>Sign Up!</button>
+                        
+                    </div>
+                    {this.AddRegister()}
+                    
+            </div>  
         )
     }
 }
