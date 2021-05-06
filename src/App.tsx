@@ -5,6 +5,7 @@ import CareIndex from './components/Care/CareIndex';
 import Register from './components/Auth/Register'
 import Navigation from './components/Navigation/Navigation';
 import CreateInfant from './components/Infants/CreateInfant';
+import InfantIndex from './components/Infants/InfantIndex'
 import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -59,7 +60,7 @@ class App extends Component<{}, LoginState> {
   // }
   createInfantView = () => {
     console.log(this.state.sessionToken)
-    return (localStorage.getItem('token')) ? <><Navigation/><CreateInfant token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+    return (localStorage.getItem('token')) ? <><Navigation/><InfantIndex token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
   }
   //use localStorage.getItem('token')  - if I can't hunt this down
 

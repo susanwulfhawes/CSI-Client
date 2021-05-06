@@ -54,6 +54,7 @@ class Login extends Component<AcceptedProps, MyState> {
                 console.log('here');
               this.props.updateSessionToken(data.sessionToken);
               console.log("User successfully logged in");
+              //this.setState(userid: data.user.id)   - example for passing user info
             })
             .catch((err) => alert(err));
         } else {
