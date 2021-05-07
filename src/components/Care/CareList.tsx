@@ -156,21 +156,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
         this.careMapper()
     };
 
-    // updateCare = (careid: number) => {
-    //     console.log(careid)
-    //     //this.setState({showUpdate: true})
-    //     fetch(('http://localhost:3000/care/update/' + careid), {
-    //         method: 'PUT',
-    //         headers: new Headers({
-    //             "Content-Type": "application/json"
-    //         }),
-    //         body: JSON.stringify({
-    //           care: 'Nap'
-    //         }),
-    //     })
-    //     .then((() => console.log('updated')))
-        
-    // };
+   
 
     toggleCareUpdateOn = (careid: number) => {
         this.setState({showUpdate: true})
@@ -189,15 +175,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
         this.setState({updateCareid: data.id})
         return (data);
     })
-    //     .then(response => {
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log(data)
-            
-    //         console.log('carebyid', this.state.carebyid)
-    // }
-    // )
+    
     
 }
 
