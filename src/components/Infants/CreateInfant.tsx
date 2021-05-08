@@ -51,7 +51,7 @@ class CreateInfant extends React.Component<AcceptedProps, MyState>{
             })
             .then((data) => {
                 console.log('here');
-                alert("Baby's profile created");
+                //alert("Baby's profile created");
             })
             .catch((err) => alert(err));
         } else {

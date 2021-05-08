@@ -3,13 +3,14 @@
   /* background: './assets/manuel-schinner-ZwjFuJ7ebpk-unsplash.jpg',  */
 }
 
-.Login-Button{
+.Do-Button{
   border: 2px solid #6EC4C5;
+  border-radius: 5px;
   font-size: 20px;
 }
 
 .Login-Label{
-  color: white;
+  color: black;
   font-weight: 700;
 }
 
@@ -21,6 +22,11 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+tbody.Care-List tr:nth-child(even){
+  background-color: rgba(245, 228, 220, 0.4);
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

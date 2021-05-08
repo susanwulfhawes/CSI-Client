@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Redirect} from 'react';
 import {Container, Button, Form, Navbar, NavItem, Image} from 'react-bootstrap';
 import APIURL from '../../helpers/environment';
+import babyfeet from '../../assets/babyfeet.jpg';
+import logo from '../../assets/logo.png';
 
 
 // type AcceptedProps = {
@@ -46,14 +48,23 @@ class Register extends Component {
             //localStorage.setItem('token', data.sessionToken)
             
            // console.log(localStorage.getItem('token'))
+           return(
+            <Redirect to="/login"/>
+        )
         })
+        
     }
 
     render(){
         return(
-            <div className="d-flex justify-content-center">
+            <div style={{backgroundImage:`url(${babyfeet})`, backgroundSize: 'cover', backgroundPositionY: -300, backgroundRepeat: 'no-repeat', minHeight: 1000}}>
+                <div className='pt-3'>
+                    <img className="d-flex justify-content-begin ml-5" src={logo} alt='Logo' style={{backgroundColor: '#ffffff00', width: 120, border: '3px solid #F2C2C2', borderRadius: 10}} />
+                </div>
+
+                <div className="d-flex justify-content-center">
                 <Form onSubmit={this.handleSubmitRegister}>
-               <table>
+                <table className='mt-5'>
                    <tr>
                        <td col="2">Admin Information</td>
                    </tr>
@@ -74,25 +85,12 @@ class Register extends Component {
                         <td><input type="text" placeholder="Last Name" onChange={(e) => this.setState({lastname: e.target.value})}/></td>
                    </tr>
 
-                   <tr>
-                       <td col="2">Infant Information</td>
-                   </tr>
-                   <tr>
-                        <td><label className="Login-Label d-flex justify-content-end">Baby's Name:&nbsp;</label></td>
-                        <td><input type="text" placeholder="Baby's Name" onChange={(e) => this.setState({babyname: e.target.value})}/></td>
-                   </tr>
-                   <tr>
-                         <td><label className="Login-Label d-flex justify-content-end">Parent(s)' Full Name(s):&nbsp;</label></td>
-                        <td><input type="text" placeholder="Last Name" onChange={(e) => this.setState({parentname: e.target.value})}/></td>
-                   </tr>
-                   <tr>
-                        <td><label className="Login-Label d-flex justify-content-end">Contact Number:&nbsp;</label></td>
-                        <td><input type="text" placeholder="Contact Number" onChange={(e) => this.setState({contactnumber: e.target.value})}/></td>
-                   </tr>
+                  
                </table>
                <Button className="Login-Button mt-2" type="submit">Register</Button>
                </Form>
             </div>
+        </div>
         )
     }
 }

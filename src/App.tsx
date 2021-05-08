@@ -5,8 +5,11 @@ import CareIndex from './components/Care/CareIndex';
 import Register from './components/Auth/Register'
 import Navigation from './components/Navigation/Navigation';
 import CreateInfant from './components/Infants/CreateInfant';
+import InfantIndex from './components/Infants/InfantIndex'
+import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import RoleUsers from './components/Auth/RoleUsers';
 
 
 type LoginState = {
@@ -37,13 +40,18 @@ class App extends Component<{}, LoginState> {
     console.log(`Token: ${newToken}`);
   };
 
+  clearToken =() => {
+    localStorage.clear();
+    this.setState({sessionToken: ''});
+  }
+
   // protectViews = () => {
   //   console.log(this.updateSessionToken);
   //   return <Login updateSessionToken={this.updateSessionToken} />
   // }
 
   homeView = () => {
-    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex /> <Register /></>: (<Login updateSessionToken={this.updateSessionToken} />)
+    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex  token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
   };
 
   // createInfantView = () => {
@@ -52,12 +60,20 @@ class App extends Component<{}, LoginState> {
   // }
   createInfantView = () => {
     console.log(this.state.sessionToken)
-    return (localStorage.getItem('token')) ? <><Navigation/><CreateInfant token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+    return (localStorage.getItem('token')) ? <><Navigation/><InfantIndex token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
   }
   //use localStorage.getItem('token')  - if I can't hunt this down
 
   careIndexView = () => {
-    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex /> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+    return (localStorage.getItem('token')) ? <><Navigation/><CareIndex  token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
+  }
+
+  registerView = () => {
+    return (<Register />)
+  }
+
+  createUserRoleView = () => {
+    return (localStorage.getItem('token')) ? <><Navigation/><RoleUsers token={localStorage.getItem('token')}/> </>: (<Login updateSessionToken={this.updateSessionToken} />)
   }
 
     render(){
@@ -69,58 +85,16 @@ class App extends Component<{}, LoginState> {
               <Route exact path="/" component={this.homeView} />
               <Route path="/createinfant" component={this.createInfantView} /> 
               <Route path="/careindex" component={this.careIndexView} />
+              <Route path="/roleusers" component={this.createUserRoleView} />
+              <Route path='/register' component={this.registerView} />
             </Switch>
           </Router>
-          <footer></footer>
+          <Footer />
         </div>
       );
     }
 
-  // render(){
-  //   return (
-  //     <div className="App">
-        
-  //       <Router>
-        
-  //       {(localStorage.getItem('token')) ? <><CareIndex /> <Register /></>: (<Login updateSessionToken={this.updateSessionToken} />)}
-  //       </Router>
 
-
-  //     </div>
-  //   )
-
-  //   return (
-  //     <React.Fragment>
-  //         <Router>
-  //             {/* <Nav /> */}
-  //             <div className="sidebar-list-styling">
-  //               <ul className="sidebar-list list-unstyled">
-  //                   <li><Link to="/login">login</Link></li>
-  //                   <li><Link to="/careindex">Care Index</Link></li>
-                    
-  //               </ul>
-  //           </div>
-  //             <div>
-  //             <Switch>
-  //                 <Route exact path="/login" component={ this.protectViews } />
-  //                 <Route exact path="/careindex" component={ CareIndex } />
-  //             </Switch>
-  //             </div>
-  //         </Router>
-  //     </React.Fragment>
-  // )
-  
-
-
-  // render(){
-  //   return (
-  //     <div className="App">
-  //       <div className="verticalCenter">
-  //         <Login updateSessionToken={this.updateSessionToken} />
-  //       </div>
-  //     </div>
-  //   );
-  // }
 }
  
 
