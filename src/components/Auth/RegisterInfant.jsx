@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Button, Form, Navbar, NavItem, Image} from 'react-bootstrap';
+import APIURL from '../../helpers/environment';
 
 
 // type AcceptedProps = {
@@ -17,7 +18,7 @@ class RegisterInfant extends Component {
     handleSubmitRegisterInfant = () => {
         //event.preventDefault();
         
-        fetch('http://localhost:3000/infant/register', {
+        fetch(`${APIURL}/infant/register`, {
             method: 'POST',
             body: JSON.stringify({babyname: this.state.babyname, parentname: this.state.parentname, contactnumber: this.state.contactnumber}),
             headers: new Headers({

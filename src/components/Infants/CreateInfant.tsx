@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Container, Button, Form, Navbar, NavItem, Image} from 'react-bootstrap';
 import babyfeet from '../../assets/babyfeet.jpg';
 import logo from '../../assets/logo.png';
+import APIURL from '../../helpers/environment';
 
 
 type MyState = {
@@ -31,7 +32,7 @@ class CreateInfant extends React.Component<AcceptedProps, MyState>{
       console.log(this.props.token)
       if (localStorage.getItem('token')){
         e.preventDefault();
-          fetch('http://localhost:3000/infant/register', {
+          fetch(`${APIURL}/infant/register`, {
             method: "POST",
             headers: new Headers({
               "Content-Type": "application/json",

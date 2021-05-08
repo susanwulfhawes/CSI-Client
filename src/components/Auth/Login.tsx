@@ -5,6 +5,7 @@ import logo from '../../assets/logo.png';
 import Register from './Register';
 // import RegisterInfant from './RegisterInfant';
 import ReactDOM from 'react-dom';
+import APIURL from '../../helpers/environment';
 
 
 type AcceptedProps = {
@@ -28,7 +29,7 @@ class Login extends Component<AcceptedProps, MyState> {
     handleSubmit = (e: any) => {
         if (this.state.email !== "" && this.state.password !== "") {
           e.preventDefault();
-          fetch('http://localhost:3000/user/login', {
+          fetch(`${APIURL}/user/login`, {
             method: "POST",
             headers: new Headers({
               "Content-Type": "application/json",
