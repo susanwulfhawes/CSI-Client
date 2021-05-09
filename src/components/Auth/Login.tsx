@@ -65,7 +65,7 @@ class Login extends Component<AcceptedProps, MyState> {
       handleSubmitRegister = () => {
         
             
-        fetch('http://localhost:3000/user/create/1', {
+        fetch(`${APIURL}/user/create/1`, {
             method: 'POST',
             body: JSON.stringify({email: this.state.email, password: this.state.password, firstname: this.state.firstname, lastname: this.state.lastname}),
             headers: new Headers({

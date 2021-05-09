@@ -3,6 +3,8 @@ import {Container, Button, Form, Nav, Navbar, NavItem, NavbarBrand, Image} from 
 import ReactDOM from 'react-dom';
 import './Navigation.css';
 import jwt_decode from 'jwt-decode';
+import APIURL from '../../helpers/environment';
+
 
 // type AcceptedProps = {
 //     testProp: string,
@@ -34,8 +36,8 @@ class Navigation extends Component<{}, NavigationProps> {
           let token: string | any = localStorage.getItem('token');
           //console.log(jwt_decode(token));
           let jwtString: string | any = jwt_decode(token);
-          console.log(jwtString.id)
-          fetch(('http://localhost:3000/user/userbyid/' + jwtString.id), {
+          console.log(`${APIURL}/user/userbyid/` + jwtString.id)
+          fetch((`${APIURL}/user/userbyid/` + jwtString.id), {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
@@ -45,6 +47,7 @@ class Navigation extends Component<{}, NavigationProps> {
             .then((res) => (res.json()))
             .then((data) => {
                 this.setState({isAdmin: data.role})
+                console.log('is admin', this.state.isAdmin)
             })
             
       };

@@ -17,22 +17,7 @@ class Register extends Component {
     }
 
     handleSubmitRegister = () => {
-        //event.preventDefault();
         
-        // fetch('http://localhost:3000/infant/register', {
-        //     method: 'POST',
-        //     body: JSON.stringify({babyname: this.state.babyname, parentname: this.state.parentname, contactnumber: this.state.contactnumber}),
-        //     headers: new Headers({
-        //         'Content-Type': 'application/json'
-        //     })
-        // }).then(
-        //     (response) => response.json()
-        // ).then((data) => {
-        //     ///this.setState({updateToken: data.sessionToken})
-        //     //localStorage.setItem('token', data.sessionToken);
-        //     console.log(data);
-        //     //console.log(localStorage.getItem('token'));
-        // })
             
         fetch(`${APIURL}/user/create/`, {
             method: 'POST',

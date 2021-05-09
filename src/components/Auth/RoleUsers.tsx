@@ -47,7 +47,7 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
             })
               .then((res) => {
                 if (res.status !== 200) {
-                  throw new Error("Could not create this care");
+                  throw new Error("Could not create this care2");
                 } else return res.json();
               })
               .then((data) => {

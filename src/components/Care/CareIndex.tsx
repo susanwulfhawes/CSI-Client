@@ -34,7 +34,7 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
       console.log(this.state.time)
       if (localStorage.getItem('token')){
         e.preventDefault();
-          fetch(`${APIURL}/infant/register`, {
+          fetch(`${APIURL}/care/create`, {
             method: "POST",
             headers: new Headers({
               "Content-Type": "application/json",
