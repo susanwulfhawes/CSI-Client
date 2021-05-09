@@ -3,6 +3,8 @@ import jwt_decode from 'jwt-decode';
 import { isThisTypeNode } from 'typescript';
 import CreateInfant from '../Infants/CreateInfant';
 import UpdateInfant from './UpdateInfant';
+import APIURL from '../../helpers/environment';
+
 
 export interface InfantIndexProps {
     token: string | any,
@@ -24,7 +26,7 @@ class InfantIndex extends React.Component<InfantIndexProps, InfantIndexState> {
         //console.log(jwt_decode(token));
         let jwtString: string | any = jwt_decode(token);
         console.log(jwtString.id)
-        fetch(('http://localhost:3000/user/userbyid/' + jwtString.id), {
+        fetch((`${APIURL}/user/userbyid/` + jwtString.id), {
           method: "GET",
           headers: new Headers({
             "Content-Type": "application/json",

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import logo from '../../assets/logo.png';
 import {Button, Form, Table} from 'react-bootstrap';
+import APIURL from '../../helpers/environment';
+
 
 export interface RoleUsersProps {
     token: string | any,
@@ -31,8 +33,8 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
     handleSubmit = (e: any) => {
         if (localStorage.getItem('token')){
           e.preventDefault();
-          let url:string = 'http://localhost:3000/user/create/' + this.state.role;
-            fetch('http://localhost:3000/user/create/2', {
+        //   let url:string = 'http://localhost:3000/user/create/' + this.state.role;
+            fetch(`${APIURL}/user/create/2`, {
               method: "POST",
               headers: new Headers({
                 "Content-Type": "application/json",

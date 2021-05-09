@@ -5,6 +5,8 @@ import {ICares} from './CareInterface';
 import {Button} from 'react-bootstrap';
 import {Form, Table} from 'react-bootstrap';
 import { convertToObject, updateTypeReferenceNode } from 'typescript';
+import APIURL from '../../helpers/environment';
+
 
 export interface CareListProps {
     test: string,
@@ -59,7 +61,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
     }
 
     fetchCares = () => {
-        fetch('http://localhost:3000/care/allcares', {
+        fetch(`${APIURL}/care/allcares`, {
             method: "GET",
             headers: new Headers ({
                 'Content-Type': 'application-json',
@@ -74,7 +76,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
     )};
 
     fetchUsers = () => {
-        fetch('http://localhost:3000/user/allusers', {
+        fetch(`${APIURL}/user/allusers`, {
             method: "GET",
             headers: new Headers ({
                 'Content-Type': 'application-json',
@@ -94,7 +96,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
     };
 
     handleSubmit = () => {
-        fetch(('http://localhost:3000/care/update/' + this.state.updateCareid),{
+        fetch((`${APIURL}/care/update/` + this.state.updateCareid),{
             method: 'POST',
             headers: new Headers ({
                 'Content-Type': 'application/json'
@@ -131,7 +133,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
     };
 
     userRoleAndId = () => {
-        fetch('http://localhost:3000/user/current', {
+        fetch(`${APIURL}/user/current`, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
@@ -145,7 +147,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
 
     deleteCare = (careid: number) => {
         console.log(careid)
-        fetch(('http://localhost:3000/care/delete/' + careid), {
+        fetch((`${APIURL}/care/delete/` + careid), {
             method: 'DELETE',
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -160,7 +162,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
 
     toggleCareUpdateOn = (careid: number) => {
         this.setState({showUpdate: true})
-        fetch(('http://localhost:3000/care/carebyid/' + careid), {
+        fetch((`${APIURL}/care/carebyid/` + careid), {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": "application/json",

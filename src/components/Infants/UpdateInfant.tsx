@@ -3,6 +3,8 @@ import {Form, Table, Button} from 'react-bootstrap';
 import logo from '../../assets/logo.png';
 import jwt_decode from 'jwt-decode';
 import InfantIndex from './InfantIndex';
+import APIURL from '../../helpers/environment';
+
 
 
 export interface UpdateInfantProps {
@@ -28,7 +30,7 @@ class UpdateInfant extends React.Component<UpdateInfantProps, UpdateInfantState>
     }
 
     handleSubmit = () => {
-      fetch(('http://localhost:3000/care/update/' + this.state.infantid),{
+      fetch((`${APIURL}/care/update/` + this.state.infantid),{
           method: 'POST',
           headers: new Headers ({
               'Content-Type': 'application/json'
@@ -46,7 +48,7 @@ class UpdateInfant extends React.Component<UpdateInfantProps, UpdateInfantState>
       let token: string | any = localStorage.getItem('token');
       let jwtString: string | any = jwt_decode(token);
       console.log(jwtString.id)
-      fetch(('http://localhost:3000/user/userbyid/' + jwtString.id), {
+      fetch((`${APIURL}/user/userbyid/` + jwtString.id), {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -70,8 +72,8 @@ class UpdateInfant extends React.Component<UpdateInfantProps, UpdateInfantState>
 
   fillFields = (id: number | any) => {
     console.log('here is the id', id)
-    console.log('http://localhost:3000/infant/infantbyid/' + id)
-    fetch(('http://localhost:3000/infant/infantbyid/' + id), {
+    // console.log('http://localhost:3000/infant/infantbyid/' + id)
+    fetch((`${APIURL}/infant/infantbyid/` + id), {
         method: 'GET',
         headers: new Headers({
             "Content-Type": "application/json",
