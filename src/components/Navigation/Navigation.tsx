@@ -73,7 +73,7 @@ class Navigation extends Component<{}, NavigationProps> {
                             {(localStorage.getItem('token') ? this.getUserRole) ? <Button href="/createinfant" style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Create Infant</Button> : <></>}
                     </NavItem> */}
                     <NavItem className="ml-2">
-                            {localStorage.getItem('token') && this.state.isAdmin === '1' ? <Button href="/createinfant" style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Create Infant</Button> : <></>}
+                            {localStorage.getItem('token') && this.state.isAdmin === '1' ? <Button href="/createinfant" style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Infant Info</Button> : <></>}
                     </NavItem>
                     <NavItem className="ml-2">
                             {localStorage.getItem('token') && this.state.isAdmin === '1' ? <Button href="/roleusers" style={{backgroundColor: '#3ec4c5', border: '3px solid #f2c2c2'}} >Create Helpers</Button> : <></>}

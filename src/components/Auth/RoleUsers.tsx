@@ -34,7 +34,7 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
         if (localStorage.getItem('token')){
           e.preventDefault();
         //   let url:string = 'http://localhost:3000/user/create/' + this.state.role;
-            fetch(`${APIURL}/user/create/2`, {
+            fetch((`${APIURL}/user/create/` + this.state.role), {
               method: "POST",
               headers: new Headers({
                 "Content-Type": "application/json",

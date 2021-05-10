@@ -29,6 +29,7 @@ export interface CareListState {
     date: string,
     carebyid: object | any,
     updateCareid: string,
+    userRole: string,
 }
 
 // export interface ICares {
@@ -57,6 +58,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
             date: '',
             carebyid: '',
             updateCareid: '',
+            userRole: '',
          };
     }
 
@@ -93,6 +95,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
         
         this.fetchUsers()
         this.fetchCares()
+        this.userRoleAndId()
     };
 
     handleSubmit = () => {
@@ -141,7 +144,10 @@ class CareList extends React.Component<CareListProps, CareListState> {
             })
         })
         .then((res) => res.json())
-        .then((data) => console.log(data)
+        .then((data) => {
+            console.log(data)
+            this.setState({userRole: data.role})
+        }
             
         )}
 
@@ -266,13 +272,12 @@ fillUpdateFields = (carebyidobj: object) => {
         }
         
     };
-        
 
 
     careMapper = () => {
         //console.log(this.state.userArry);
         //console.log(this.state.caresall);
-        // console.log('role and id', this.userRoleAndId())
+        console.log('role and id', this.state.userRole)
         return this.state.caresall.reverse().map((care, index) => {
             this.userNameFunc(care.userId)
            
@@ -287,15 +292,20 @@ fillUpdateFields = (carebyidobj: object) => {
                     <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.date}</td>
                     <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{this.userNameFunc(care.userId)}</td>
                     <td>
+                        {/* {this.UpdateButton} */}
+                        {this.state.userRole === "3" ? <></> :
                         <Button onClick={() => {
                             this.setState({carebyid: this.toggleCareUpdateOn(care.id)})
                             this.toggleCareUpdateOn(care.id);
                             this.careMapper();
                             }} 
                             className="d-flex justify-content-center Login-Button" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 14, color: 'black', backgroundColor: 'white'}}>Update</Button>
+                        }
                     </td>
                     <td>
+                    {this.state.userRole === "3" ? <></> :
                     <Button onClick={() => this.deleteCare(care.id)} className="d-flex justify-content-center Login-Button" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 14, color: 'red', backgroundColor: 'white'}}>Delete</Button>
+                    }
                     </td>
                 </tr>
                 );
