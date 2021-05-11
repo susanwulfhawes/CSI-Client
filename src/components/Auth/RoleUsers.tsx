@@ -2,6 +2,7 @@ import * as React from 'react';
 import logo from '../../assets/logo.png';
 import {Button, Form, Table} from 'react-bootstrap';
 import APIURL from '../../helpers/environment';
+import CareGiverTable from './CareGiverTable';
 
 
 export interface RoleUsersProps {
@@ -73,7 +74,7 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
                         <Table className='mb-3' width='80%' style={{border: '1px solid #ddd', backgroundColor: 'white', minWidth: 500}}>
                             <thead>
                                 <tr style={{backgroundColor: '#6EC4C5', color: 'white'}}>
-                                    <th colSpan={2} className='py-3'>Care Givers and Viewers</th>
+                                    <th colSpan={2} className='py-3' style={{textAlign: 'center'}}>Care Givers and Viewers</th>
                                     
                                 </tr>
 
@@ -81,7 +82,7 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
                         <tbody className='Care-List' style={{backgroundColor: 'white'}}>
                     <tr>
                             <td>
-                                <label className="Login-Label d-flex justify-content-end">Email:&nbsp;</label>
+                                <label className="Login-Label d-flex justify-content-end"><span style={{color: 'red'}}>&#42; &nbsp;</span>Email:&nbsp;</label>
                             </td>
                             <td>
                                 <input type="email" placeholder="email" onChange={(e) => this.setState({email: e.target.value})}/>
@@ -89,23 +90,23 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
                    </tr>
                    <tr>
                         <td className="Login-Label d-flex justify-content-end">
-                            <label>Password:&nbsp;</label>
+                            <label><span style={{color: 'red'}}>&#42; &nbsp;</span>Password:&nbsp;</label>
                         </td>
                         <td>
                             <input type="password" placeholder="password" onChange={(e) => this.setState({password: e.target.value})}/>
                         </td>
                     </tr>
                    <tr>
-                        <td className="Login-Label d-flex justify-content-end"><label className="Login-Label d-flex justify-content-end">First Name:&nbsp;</label></td>
+                        <td className="Login-Label d-flex justify-content-end"><label className="Login-Label d-flex justify-content-end"><span style={{color: 'red'}}>&#42; &nbsp;</span>First Name:&nbsp;</label></td>
                         <td><input type="text" placeholder="First Name" onChange={(e) => this.setState({firstname: e.target.value})}/></td>
                    </tr>
                    <tr>
-                        <td><label className="Login-Label d-flex justify-content-end">Last Name:&nbsp;</label></td>
+                        <td><label className="Login-Label d-flex justify-content-end"><span style={{color: 'red'}}>&#42; &nbsp;</span>Last Name:&nbsp;</label></td>
                         <td><input type="text" placeholder="Last Name" onChange={(e) => this.setState({lastname: e.target.value})}/></td>
                    </tr>
 
                             <tr>
-                                <td style={{width: '25%'}}><label htmlFor="role" className="d-flex justify-content-end"><span style={{color: 'red'}}>&#42; &nbsp;</span>Role:&nbsp;</label>
+                                <td style={{width: '30%'}}><label htmlFor="role" className="d-flex justify-content-end"><span style={{color: 'red'}}>&#42; &nbsp;</span><strong>Role:&nbsp;</strong></label>
                                 </td>
                           
                                 <td>
@@ -124,6 +125,8 @@ class RoleUsers extends React.Component<RoleUsersProps, RoleUsersState> {
             </div>
                     </Form>
                 </div>
+                <hr />
+                <CareGiverTable />
             </div>
         )
 }
