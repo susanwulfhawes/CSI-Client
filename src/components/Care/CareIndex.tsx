@@ -16,6 +16,8 @@ type MyState = {
     amount: string,
     time: string,
     date: string,
+    userRole: string,
+    token: string | any,
 };
 
 class CareIndex extends React.Component<AcceptedProps, MyState>{
@@ -27,6 +29,8 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
             amount: '',
             time: '',
             date: '',
+            userRole: '',
+            token: localStorage.getItem('token'),
         }
     }
 
@@ -88,7 +92,39 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
         )
       };
 
+      userRoleAndId = () => {
+        fetch(`${APIURL}/user/current`, {
+            method: "GET",
+            headers: new Headers({
+              "Content-Type": "application/json",
+              'Authorization': this.state.token
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data, 'userRoleAndId')
+            this.setState({userRole: data.role})
+        }
+            
+        )}
+
+        componentDidMount() {
+          this.userRoleAndId()
+      };
+
     render(){
+      console.log(this.state.userRole, 'user role')
+      if (this.state.userRole === '3'){
+        console.log('here')
+        return (
+          <div style={{backgroundColor: '#C1DDD8', minHeight: 1000}}>
+                <div className='pt-3'>
+                    <img className="d-flex justify-content-begin ml-5" src={logo} alt='Logo' style={{backgroundColor: '#ffffff00', width: 120, border: '3px solid #F2C2C2', borderRadius: 10}} />
+                </div>
+                <CareList test='testing'/>
+          </div>
+        )
+      } else {
           return (
             <div style={{backgroundColor: '#C1DDD8', minHeight: 1000}}>
                 <div className='pt-3'>
@@ -165,7 +201,9 @@ class CareIndex extends React.Component<AcceptedProps, MyState>{
                 <hr/>
                 <CareList test='testing'/>
             </div>
-        )
+          )
+        }
+        
     }
 }
 

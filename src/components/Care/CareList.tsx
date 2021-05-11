@@ -30,6 +30,7 @@ export interface CareListState {
     carebyid: object | any,
     updateCareid: string,
     userRole: string,
+    userInfantId: number,
 }
 
 // export interface ICares {
@@ -59,6 +60,7 @@ class CareList extends React.Component<CareListProps, CareListState> {
             carebyid: '',
             updateCareid: '',
             userRole: '',
+            userInfantId: 0,
          };
     }
 
@@ -92,10 +94,10 @@ class CareList extends React.Component<CareListProps, CareListState> {
     )};
 
     componentDidMount() {
-        
+        this.userRoleAndId()
         this.fetchUsers()
         this.fetchCares()
-        this.userRoleAndId()
+        
     };
 
     handleSubmit = () => {
@@ -147,9 +149,27 @@ class CareList extends React.Component<CareListProps, CareListState> {
         .then((data) => {
             console.log(data)
             this.setState({userRole: data.role})
+            this.setState({userInfantId: data.infantId})
         }
             
         )}
+        
+        // listUserInfantId = (id: number | any) => {
+        //     console.log('the url', (`${APIURL}/user/userbyid/` + id))
+        //     fetch((`${APIURL}/user/userbyid/` + id), {
+        //         method: "GET",
+        //         headers: new Headers({
+        //           "Content-Type": "application/json",
+        //           'Authorization': this.state.token
+        //         })
+        //     })
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         console.log('from list user infantid', data)
+        //         return (data.infantId)
+        //     }
+                
+        //     )}
 
     deleteCare = (careid: number) => {
         console.log(careid)
@@ -275,39 +295,46 @@ fillUpdateFields = (carebyidobj: object) => {
 
 
     careMapper = () => {
-        //console.log(this.state.userArry);
-        //console.log(this.state.caresall);
-        console.log('role and id', this.state.userRole)
+               
+        // console.log('role and id', this.state.userRole)
+        // console.log('tertiary', (this.listUserInfantId(1)))
         return this.state.caresall.reverse().map((care, index) => {
             this.userNameFunc(care.userId)
            
 
             return (
+                <>
+                {/* this is where the tertiary check that the user.id(care.userid).infantId === currentuser.infantId */}
+                {/* {CURRENTUSER.infantId !== USER.(care.userid).infantId ? */}
+                {/* {this.state.userInfantId !== this.listUserInfantId(11) ?
+                <></> : */}
                 
-                <tr key={index}>
-                    <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.care}</td>
-                    <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.type}</td>
-                    <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.amount}</td>
-                    <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.time}</td>
-                    <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.date}</td>
-                    <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{this.userNameFunc(care.userId)}</td>
-                    <td>
-                        {/* {this.UpdateButton} */}
+                    <tr key={index}>
+                        <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.care}</td>
+                        <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.type}</td>
+                        <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.amount}</td>
+                        <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.time}</td>
+                        <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{care.date}</td>
+                        <td style={{paddingTop: '5px', borderRight: '1px solid #ddd'}}>&nbsp;{this.userNameFunc(care.userId)}</td>
+                        <td>
+                            {/* {this.UpdateButton} */}
+                            {this.state.userRole === "3" ? <></> :
+                            <Button onClick={() => {
+                                this.setState({carebyid: this.toggleCareUpdateOn(care.id)})
+                                this.toggleCareUpdateOn(care.id);
+                                this.careMapper();
+                                }} 
+                                className="d-flex justify-content-center Login-Button" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 14, color: 'black', backgroundColor: 'white'}}>Update</Button>
+                            }
+                        </td>
+                        <td>
                         {this.state.userRole === "3" ? <></> :
-                        <Button onClick={() => {
-                            this.setState({carebyid: this.toggleCareUpdateOn(care.id)})
-                            this.toggleCareUpdateOn(care.id);
-                            this.careMapper();
-                            }} 
-                            className="d-flex justify-content-center Login-Button" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 14, color: 'black', backgroundColor: 'white'}}>Update</Button>
+                        <Button onClick={() => this.deleteCare(care.id)} className="d-flex justify-content-center Login-Button" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 14, color: 'red', backgroundColor: 'white'}}>Delete</Button>
                         }
-                    </td>
-                    <td>
-                    {this.state.userRole === "3" ? <></> :
-                    <Button onClick={() => this.deleteCare(care.id)} className="d-flex justify-content-center Login-Button" type="submit" style={{border: '2px solid #6EC4C5', borderRadius: 5, fontSize: 14, color: 'red', backgroundColor: 'white'}}>Delete</Button>
-                    }
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    {/* } */}
+                </>
                 );
         })
         
